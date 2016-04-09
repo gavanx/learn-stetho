@@ -19,20 +19,17 @@ import re
 
 def stetho_open(device=None, process=None):
   adb = _connect_to_device(device)
-
   socket_name = None
   if process is None:
     socket_name = _find_only_stetho_socket(device)
   else:
     socket_name = _format_process_as_stetho_socket(process)
-
   try:
     adb.select_service('localabstract:%s' % (socket_name))
   except SelectServiceError as e:
     raise HumanReadableError(
         'Failure to target process %s: %s (is it running?)' % (
             process, e.reason))
-
   return adb.sock
 
 def read_input(sock, n, tag):  
@@ -63,8 +60,7 @@ def _find_only_stetho_socket(device):
       if int(row[3], 16) != 0x10000 or int(row[5]) != 1:
         continue
       last_stetho_socket_name = socket_name[1:]
-      process_names.append(
-          _parse_process_from_stetho_socket(socket_name))
+      process_names.append(_parse_process_from_stetho_socket(socket_name))
     if len(process_names) > 1:
       raise HumanReadableError(
           'Multiple stetho-enabled processes available:%s\n' % (
@@ -81,13 +77,11 @@ def _find_only_stetho_socket(device):
 def _connect_to_device(device=None):
   adb = AdbSmartSocketClient()
   adb.connect()
-
   try:
     if device is None:
       adb.select_service('host:transport-any')
     else:
       adb.select_service('host:transport:%s' % (device))
-
     return adb
   except SelectServiceError as e:
     raise HumanReadableError(
