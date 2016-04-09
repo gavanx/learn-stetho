@@ -1,3 +1,9 @@
 initializer.start
-	localsocketserver ProtocolDetectingSocketHandler DumpappSocketLikeHandler(dumper plugins) DevtoolsSocketHandler(inspectorModules)
+	localsocketserver
 		servermanager.start
+			bindToSocket
+			mServerSocket.accept
+				WorkThread
+					ProtocolDetectingSocketHandler
+						DumpappSocketLikeHandler(dumper plugins)
+						DevtoolsSocketHandler(inspectorModules)
