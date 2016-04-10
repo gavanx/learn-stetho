@@ -139,7 +139,6 @@ class Framer {
         @Override
         public int read(byte[] buffer, int byteOffset, int byteCount) throws IOException {
             mClosedHelper.throwIfClosed();
-
             synchronized (Framer.this) {
                 // Ask the client for more data...
                 writeIntFrame(STDIN_REQUEST_FRAME_PREFIX, byteCount);
@@ -147,7 +146,6 @@ class Framer {
                 if (b != STDIN_FRAME_PREFIX) {
                     throw new UnexpectedFrameException(STDIN_FRAME_PREFIX, b);
                 }
-
                 // Read what they gave us...
                 int length = readInt();
                 if (length > 0) {
@@ -184,7 +182,6 @@ class Framer {
     }
 
     private class FramingOutputStream extends OutputStream {
-
         private final byte mPrefix;
         private final ClosedHelper mClosedHelper = new ClosedHelper();
 

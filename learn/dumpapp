@@ -1,0 +1,16 @@
+DumpappSocketLikeHandler
+	Framer protocol ???
+DumpappHttpSocketLikeHandler
+	LightHttpServer ???
+
+
+
+dumper
+	dump
+		doDump
+			dumpUsage
+			dumpPluginOutput
+				crash
+				files
+				hprof
+				prefs
