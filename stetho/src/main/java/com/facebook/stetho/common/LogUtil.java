@@ -9,6 +9,8 @@
 
 package com.facebook.stetho.common;
 
+import com.facebook.stetho.BuildConfig;
+
 import android.util.Log;
 
 import java.util.Locale;

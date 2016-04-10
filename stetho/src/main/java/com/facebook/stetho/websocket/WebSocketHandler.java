@@ -69,7 +69,6 @@ public class WebSocketHandler implements HttpHandler {
             response.body = LightHttpBody.create("Not a supported WebSocket upgrade request\n", "text/plain");
             return true;
         }
-
         // This will not return on successful WebSocket upgrade, but rather block until the session is
         // shut down or a socket error occurs.
         doUpgrade(socket, request, response);
@@ -88,16 +87,13 @@ public class WebSocketHandler implements HttpHandler {
         response.addHeader(HEADER_UPGRADE, HEADER_UPGRADE_WEBSOCKET);
         response.addHeader(HEADER_CONNECTION, HEADER_CONNECTION_UPGRADE);
         response.body = null;
-
         String clientKey = getFirstHeaderValue(request, HEADER_SEC_WEBSOCKET_KEY);
         if (clientKey != null) {
             response.addHeader(HEADER_SEC_WEBSOCKET_ACCEPT, generateServerKey(clientKey));
         }
-
         InputStream in = socketLike.getInput();
         OutputStream out = socketLike.getOutput();
         LightHttpServer.writeResponseMessage(response, new LightHttpServer.HttpMessageWriter(new BufferedOutputStream(out)));
-
         WebSocketSession session = new WebSocketSession(in, out, mEndpoint);
         session.handle();
     }

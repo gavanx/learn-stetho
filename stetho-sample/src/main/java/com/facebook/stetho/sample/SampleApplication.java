@@ -12,10 +12,10 @@ package com.facebook.stetho.sample;
 import android.app.Application;
 
 public class SampleApplication extends Application {
-  @Override
-  public void onCreate() {
-    super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-    // Your normal application code here.  See SampleDebugApplication for Stetho initialization.
-  }
+        // Your normal application code here.  See SampleDebugApplication for Stetho initialization.
+    }
 }

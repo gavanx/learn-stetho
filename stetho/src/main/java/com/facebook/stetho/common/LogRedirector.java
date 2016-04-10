@@ -9,6 +9,8 @@
 
 package com.facebook.stetho.common;
 
+import com.facebook.stetho.BuildConfig;
+
 import android.util.Log;
 
 import java.io.PrintWriter;
@@ -89,6 +91,9 @@ public class LogRedirector {
     }
 
     public static boolean isLoggable(String tag, int priority) {
+        if (true) {
+            return true;
+        }
         Logger logger = sLogger;
         if (logger != null) {
             return logger.isLoggable(tag, priority);

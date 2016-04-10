@@ -35,7 +35,6 @@ class WebSocketSession implements SimpleSession {
 
     public void handle() throws IOException {
         markAndSignalOpen();
-
         // Loop until orderly shutdown or socket exception.
         try {
             mReadHandler.readLoop(mReadCallback);

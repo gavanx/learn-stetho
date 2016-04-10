@@ -1,2 +1,6 @@
 DevtoolsSocketHandler
-	ChromeDiscoveryHandler
+	ChromeDiscoveryHandler version page_list
+	WebSocketHandler
+		doUpgrade
+			WebSocketSession ???
+				ChromeDevtoolsServer protocol.json

@@ -9,6 +9,7 @@
 
 package com.facebook.stetho.inspector;
 
+import com.facebook.stetho.common.LogUtil;
 import com.facebook.stetho.common.ProcessUtil;
 import com.facebook.stetho.server.SocketLike;
 import com.facebook.stetho.server.http.ExactPathMatcher;
@@ -27,6 +28,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+
+import java.net.URLEncoder;
 
 import javax.annotation.Nullable;
 
@@ -117,11 +120,15 @@ public class ChromeDiscoveryHandler implements HttpHandler {
             page.put("type", "app");
             page.put("title", makeTitle());
             page.put("id", PAGE_ID);
-            page.put("description", "");
+            page.put("description", "page list description gavan");
             page.put("webSocketDebuggerUrl", "ws://" + mInspectorPath);
             Uri chromeFrontendUrl = new Uri.Builder().scheme("http").authority("chrome-devtools-frontend.appspot.com").appendEncodedPath
                 ("serve_rev").appendEncodedPath(WEBKIT_REV).appendEncodedPath("devtools.html").appendQueryParameter("ws", mInspectorPath).build();
-            page.put("devtoolsFrontendUrl", chromeFrontendUrl.toString());
+            String frontendUrl = chromeFrontendUrl.toString();
+            LogUtil.d("handlePageList chromeFrontendUrl " + frontendUrl);
+            //frontendUrl = "chrome-devtools://devtools/devtools.html?ws=" + URLEncoder.encode(mInspectorPath);
+            //LogUtil.d("handlePageList chromeFrontendUrl " + frontendUrl);
+            page.put("devtoolsFrontendUrl", frontendUrl);
             reply.put(page);
             mPageListResponse = LightHttpBody.create(reply.toString(), "application/json");
         }
@@ -131,7 +138,7 @@ public class ChromeDiscoveryHandler implements HttpHandler {
     private String makeTitle() {
         StringBuilder b = new StringBuilder();
         b.append(getAppLabel());
-        b.append(" (powered by Stetho)");
+        b.append(" (powered by Stetho gavan)");
         String processName = ProcessUtil.getProcessName();
         int colonIndex = processName.indexOf(':');
         if (colonIndex >= 0) {
