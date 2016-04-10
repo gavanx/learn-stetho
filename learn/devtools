@@ -2,5 +2,7 @@ DevtoolsSocketHandler
 	ChromeDiscoveryHandler version page_list
 	WebSocketHandler
 		doUpgrade
-			WebSocketSession ???
+			WebSocketSession ??? frame
 				ChromeDevtoolsServer protocol.json
+					jsonrpc
+						mMethodDispatcher.dispatch

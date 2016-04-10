@@ -12,6 +12,7 @@ package com.facebook.stetho.rhino;
 import com.facebook.stetho.inspector.console.CLog;
 import com.facebook.stetho.inspector.protocol.module.Console.MessageLevel;
 import com.facebook.stetho.inspector.protocol.module.Console.MessageSource;
+
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.ScriptRuntime;
@@ -20,44 +21,42 @@ import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.annotations.JSFunction;
 
 public class JsConsole extends ScriptableObject {
+    /**
+     * Serial version UID.
+     */
+    private static final long serialVersionUID = 1L;
 
-  /**
-   * Serial version UID.
-   */
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * <p>The zero-parameter constructor.</p>
-   *
-   * <p>When Context.defineClass is called with this class, it will construct
-   * JsConsole.prototype using this constructor.</p>
-   */
-  public JsConsole() {
-    // Empty
-  }
-
-  public JsConsole(ScriptableObject scope) {
-    setParentScope(scope);
-    Object ctor = ScriptRuntime.getTopLevelProp(scope, "Console");
-    if (ctor != null && ctor instanceof Scriptable) {
-      Scriptable scriptable = (Scriptable) ctor;
-      setPrototype((Scriptable) scriptable.get("prototype", scriptable));
+    /**
+     * <p>The zero-parameter constructor.</p>
+     *
+     * <p>When Context.defineClass is called with this class, it will construct JsConsole.prototype using this constructor.</p>
+     */
+    public JsConsole() {
+        // Empty
     }
-  }
 
-  @Override
-  public String getClassName() {
-    return "Console";
-  }
+    public JsConsole(ScriptableObject scope) {
+        setParentScope(scope);
+        Object ctor = ScriptRuntime.getTopLevelProp(scope, "Console");
+        if (ctor != null && ctor instanceof Scriptable) {
+            Scriptable scriptable = (Scriptable) ctor;
+            setPrototype((Scriptable) scriptable.get("prototype", scriptable));
+        }
+    }
 
-  @JSFunction
-  public static void log(Context cx, Scriptable thisObj, Object[] args, Function funObj) {
-    log(args);
-  }
+    @Override
+    public String getClassName() {
+        return "Console";
+    }
 
-  // See https://developer.chrome.com/devtools/docs/console-api#consolelogobject-object
-  private static void log(Object [] rawArgs) {
-    String message = JsFormat.parse(rawArgs);
-    CLog.writeToConsole(MessageLevel.LOG, MessageSource.JAVASCRIPT, message);
-  }
+    @JSFunction
+    public static void log(Context cx, Scriptable thisObj, Object[] args, Function funObj) {
+        log(args);
+    }
+
+    // See https://developer.chrome.com/devtools/docs/console-api#consolelogobject-object
+    private static void log(Object[] rawArgs) {
+        String message = JsFormat.parse(rawArgs);
+        CLog.writeToConsole(MessageLevel.LOG, MessageSource.JAVASCRIPT, message);
+    }
 }

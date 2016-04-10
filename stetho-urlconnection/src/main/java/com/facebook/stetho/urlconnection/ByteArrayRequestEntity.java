@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class ByteArrayRequestEntity implements SimpleRequestEntity {
-  private final byte[] mData;
+    private final byte[] mData;
 
-  public ByteArrayRequestEntity(byte[] data) {
-    mData = data;
-  }
+    public ByteArrayRequestEntity(byte[] data) {
+        mData = data;
+    }
 
-  @Override
-  public void writeTo(OutputStream out) throws IOException {
-    out.write(mData);
-  }
+    @Override
+    public void writeTo(OutputStream out) throws IOException {
+        out.write(mData);
+    }
 }

@@ -111,8 +111,7 @@ public class ChromeDevtoolsServer implements SimpleEndpoint {
     }
 
     private void handleRemoteRequest(JsonRpcPeer peer, JSONObject requestNode) throws MessageHandlingException {
-        JsonRpcRequest request;
-        request = mObjectMapper.convertValue(requestNode, JsonRpcRequest.class);
+        JsonRpcRequest request = mObjectMapper.convertValue(requestNode, JsonRpcRequest.class);
         JSONObject result = null;
         JSONObject error = null;
         try {

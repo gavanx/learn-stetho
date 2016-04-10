@@ -142,7 +142,6 @@ class WebSocketSession implements SimpleSession {
         private void handleClose(byte[] payload, int payloadLen) {
             int closeCode;
             String closeReasonPhrase;
-
             if (payloadLen >= 2) {
                 closeCode = ((payload[0] & 0xff) << 8) | (payload[1] & 0xff);
                 closeReasonPhrase = (payloadLen > 2) ? new String(payload, 2, payloadLen - 2) : null;
@@ -150,12 +149,10 @@ class WebSocketSession implements SimpleSession {
                 closeCode = CloseCodes.CLOSED_ABNORMALLY;
                 closeReasonPhrase = "Unparseable close frame";
             }
-
             // We must acknowledge the peer's close frame.
             if (!mSentClose) {
                 sendClose(CloseCodes.NORMAL_CLOSURE, "Received close frame");
             }
-
             markAndSignalClosed(closeCode, closeReasonPhrase);
         }
 
