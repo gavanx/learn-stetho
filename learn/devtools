@@ -5,4 +5,6 @@ DevtoolsSocketHandler
 			WebSocketSession ??? frame
 				ChromeDevtoolsServer protocol.json
 					jsonrpc
-						mMethodDispatcher.dispatch
+						mMethodDispatcher.dispatch ??? ChromeDevtoolsDomain
+							domain.ChromeDevtoolsMethod
+								void|JsonRpcResult method(JsonRpcPeer, JsonObject)

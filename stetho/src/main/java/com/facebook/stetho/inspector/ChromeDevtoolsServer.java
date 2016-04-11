@@ -10,6 +10,7 @@
 package com.facebook.stetho.inspector;
 
 import com.facebook.stetho.common.LogRedirector;
+import com.facebook.stetho.common.LogUtil;
 import com.facebook.stetho.common.Util;
 import com.facebook.stetho.inspector.jsonrpc.JsonRpcException;
 import com.facebook.stetho.inspector.jsonrpc.JsonRpcPeer;
@@ -100,6 +101,7 @@ public class ChromeDevtoolsServer implements SimpleEndpoint {
 
     private void handleRemoteMessage(JsonRpcPeer peer, String message) throws IOException, MessageHandlingException, JSONException {
         // Parse as a generic JSONObject first since we don't know if this is a request or response.
+        LogUtil.d("handleRemoteMessage: " + message);
         JSONObject messageNode = new JSONObject(message);
         if (messageNode.has("method")) {
             handleRemoteRequest(peer, messageNode);

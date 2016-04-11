@@ -53,21 +53,17 @@ public class CSS implements ChromeDevtoolsDomain {
     @ChromeDevtoolsMethod
     public JsonRpcResult getComputedStyleForNode(JsonRpcPeer peer, JSONObject params) {
         final GetComputedStyleForNodeRequest request = mObjectMapper.convertValue(params, GetComputedStyleForNodeRequest.class);
-
         final GetComputedStyleForNodeResult result = new GetComputedStyleForNodeResult();
         result.computedStyle = new ArrayList<>();
-
         mDocument.postAndWait(new Runnable() {
             @Override
             public void run() {
                 Object element = mDocument.getElementForNodeId(request.nodeId);
-
                 if (element == null) {
                     LogUtil.e("Tried to get the style of an element that does not exist, using nodeid=" + request.nodeId);
 
                     return;
                 }
-
                 mDocument.getElementStyles(element, new StyleAccumulator() {
                     @Override
                     public void store(String name, String value, boolean isDefault) {
@@ -75,14 +71,12 @@ public class CSS implements ChromeDevtoolsDomain {
                             CSSComputedStyleProperty property = new CSSComputedStyleProperty();
                             property.name = name;
                             property.value = value;
-
                             result.computedStyle.add(property);
                         }
                     }
                 });
             }
         });
-
         return result;
     }
 

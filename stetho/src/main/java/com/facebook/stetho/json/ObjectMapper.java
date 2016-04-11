@@ -55,11 +55,9 @@ public class ObjectMapper {
         if (fromValue == null) {
             return null;
         }
-
         if (toValueType != Object.class && toValueType.isAssignableFrom(fromValue.getClass())) {
             return (T) fromValue;
         }
-
         try {
             if (fromValue instanceof JSONObject) {
                 return _convertFromJSONObject((JSONObject) fromValue, toValueType);
@@ -318,5 +316,4 @@ public class ObjectMapper {
             clazz.equals(Long.class) ||
             clazz.equals(Float.class);
     }
-
 }

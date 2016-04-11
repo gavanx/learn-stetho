@@ -12,7 +12,6 @@ package com.facebook.stetho.inspector.protocol.module;
 import android.os.Build;
 
 public interface DatabaseConstants {
-
     /**
      * Minimum API version required to use the {@link Database}.
      */

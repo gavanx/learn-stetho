@@ -50,12 +50,9 @@ public class JsonRpcPeer {
 
     public void invokeMethod(String method, Object paramsObject, @Nullable PendingRequestCallback callback) throws NotYetConnectedException {
         Util.throwIfNull(method);
-
         Long requestId = (callback != null) ? preparePendingRequest(callback) : null;
-
         // magic, can basically convert anything for some amount of runtime overhead...
         JSONObject params = mObjectMapper.convertValue(paramsObject, JSONObject.class);
-
         JsonRpcRequest message = new JsonRpcRequest(requestId, method, params);
         String requestString;
         JSONObject jsonObject = mObjectMapper.convertValue(message, JSONObject.class);
