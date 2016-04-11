@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
         // Demonstrate that it is removed from the release build...
         if (!isStethoPresent()) {
             Toast.makeText(this, getString(R.string.stetho_missing, BuildConfig.BUILD_TYPE), Toast.LENGTH_LONG).show();

@@ -22,9 +22,7 @@ import java.io.PrintStream;
 import java.util.Iterator;
 
 public class APODDumperPlugin implements DumperPlugin {
-
     private static final String NAME = "apod";
-
     private static final String CMD_LIST = "list";
     private static final String CMD_CLEAR = "clear";
     private static final String CMD_DELETE = "delete";
@@ -47,9 +45,7 @@ public class APODDumperPlugin implements DumperPlugin {
     public void dump(DumperContext dumpContext) throws DumpException {
         PrintStream writer = dumpContext.getStdout();
         Iterator<String> argsIter = dumpContext.getArgsAsList().iterator();
-
         String command = ArgsHelper.nextOptionalArg(argsIter, null);
-
         if (CMD_LIST.equalsIgnoreCase(command)) {
             doList(writer);
         } else if (CMD_DELETE.equalsIgnoreCase(command)) {
@@ -69,22 +65,18 @@ public class APODDumperPlugin implements DumperPlugin {
     private void doList(PrintStream writer) {
         Cursor cursor = mContentResolver.query(APODContract.CONTENT_URI, null /* projection */, null /* selection */, null /* selectionArgs */,
             APODContract.Columns._ID);
-
         int count = 0;
-
         while (cursor.moveToNext()) {
             writer.println(String.format("Row #%d", count++));
             for (int i = 0; i < cursor.getColumnCount(); ++i) {
                 writer.println(String.format("  %s: %s", cursor.getColumnName(i), cursor.getString(i)));
             }
         }
-
         writer.println();
     }
 
     private void doRemove(PrintStream writer, Iterator<String> argsIter) throws DumpUsageException {
         String rowId = ArgsHelper.nextArg(argsIter, "Expected rowId");
-
         delete(writer, APODContract.Columns._ID + "=?", new String[]{rowId});
     }
 
@@ -99,14 +91,12 @@ public class APODDumperPlugin implements DumperPlugin {
 
     private void delete(PrintStream writer, String where, String[] args) {
         int result = mContentResolver.delete(APODContract.CONTENT_URI, where, args);
-
         writer.println("Removed " + result + " rows.");
     }
 
     private static void usage(PrintStream writer) {
         final String cmdName = "dumpapp " + NAME;
         final String usagePrefix = "Usage: " + cmdName + " ";
-
         writer.println(usagePrefix + "<command> [command-options]");
         writer.print(usagePrefix + CMD_LIST);
         writer.println();

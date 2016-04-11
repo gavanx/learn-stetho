@@ -65,7 +65,6 @@ public class SampleDebugApplication extends SampleApplication {
             ContentProviderSchema calendarsSchema = new ContentProviderSchema.Builder().table(new Table.Builder().uri(CalendarContract.Calendars
                 .CONTENT_URI).projection(new String[]{CalendarContract.Calendars._ID, CalendarContract.Calendars.NAME, CalendarContract.Calendars
                 .ACCOUNT_NAME, CalendarContract.Calendars.IS_PRIMARY,}).build()).build();
-
             // sample events content provider we want to support
             ContentProviderSchema eventsSchema = new ContentProviderSchema.Builder().table(new Table.Builder().uri(CalendarContract.Events
                 .CONTENT_URI).projection(new String[]{CalendarContract.Events._ID, CalendarContract.Events.TITLE, CalendarContract.Events

@@ -15,7 +15,6 @@ public class SampleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         // Your normal application code here.  See SampleDebugApplication for Stetho initialization.
     }
 }
